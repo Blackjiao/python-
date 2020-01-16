@@ -1,0 +1,119 @@
+python基础:
+python程序的执行方式:文件式(python)和交互式(在终端执行)
+python的执行过程:python 是解释型语言(运行速度慢开发效率高),源代码-编译-字节码-解释-机器码
+python数据类型:int  str bool complex float None
+pass语句:用来填充语法空白
+break语句:跳出循环体,后面代码不再执行
+continueyuju:跳过此段代码,继续循环
+"""三引号:允许字符串跨行,添加特殊符号等 也可做注释"""
+一 字符串的操作:
+1.字符串基本操作
+	str[索引]
+	str[切片]
+	str+str
+	str*数字(重复输出字符串)
+2.字符串格式化
+	%s %d %f 
+	%u(无符号整型)	
+3.字符串的方法
+	str.capitalize() 将字符串第一个字母变为大写
+	str.center(宽度,字符) 返回一个指定宽度的字符串,其余位置填充为输入字符,默认为空格
+	str.count(str,开始索引,结束索引) 返回str在源字符串指定索引范围中出现的次数,默认为从头到位
+	bytes.decode(encoding='utf-8',errors='strict') 字节串转字符串(编码格式为utf8,错误处理方案为strict)   
+	str.encode(encoding='utf-8',errors='strict')字符串转字节串(编码格式为utf8,错误处理方案为strict)
+	str.endswuth(str,开始索引,结束索引) 检查字符串是否以str结尾,是返回true,否返回false
+	str.expandtabs(tabsize=8) 规定字符串中的通用制表符的长度
+	str.find(str,开始索引,结束索引)检查在字符串规定索引范围中是否存在str,有返回str的开始索引,没有返回-1
+	str.index(str,开始索引,结束索引)检查在字符串规定索引范围中是否存在str,有返回str的开始索引,没有报错
+	str.isalnum() 如果字符串全部由字母或数字组成则返回true,否则返回false
+	str.isalpha()如果字符串全部由字母组成则返回True,否则返回false
+	str.isdigist()如果字符串只包含数字,返回true,否则返回false
+	str.islower()如果str中的字符全为小写,返回true,否则返回false
+	str.isnumeric()如果str中只包含数字字符返回true,否则返回false
+	str.isspace()如果字符串只包含空白,则返回true,否则返回false
+	str.istitle()如果字符串是标题化,则返回true,否则返回false
+	str.titile()将字符串标题化,首字母大写
+	str.isupper()如果str中的字符全为大写,返回true,否则返回false
+	str.jion(列表) 以str为分隔符,将列表所有元素合并为一个新的字符串
+	len(str) 返回字符串的长度
+	str.ljust(宽度,字符) 在字符串后填充空格或字符至指定宽度(左对齐)
+	str.lower()将字符串转换成小写
+	str.upper()将字符串转换至大写	
+	str.maketrans(被转换的字符,转换后的字符) 将字符串中参数1的字符替换为参数2返回替换后的字符串
+	max(str)返回字符串中最大的字母
+	min(str)返回字符串中最小的字母
+	str.replace(旧字符串,新字符串[,次数]) 将字符串中旧字符串替换为新字符串,次数给定,替换不超过给定的次数
+	str.rfind(str,开始索引,结束索引)从右边开始检查在字符串规定索引范围中是否存在str,有返回str的开始索引,没有返回-1
+	str.rindex(str,开始索引,结束索引)从右边开始检查在字符串规定索引范围中是否存在str,有返回str的开始索引,没有报错
+	str.rjust(宽度,字符) 在字符串前填充空格或字符至指定宽度(右对齐)
+	str.rstrip()删除字符串末尾的空格
+	str.lstrip([字符])返回截掉左边字符串或空格的新字符串,参数默认为空
+	str.split(分隔符,次数)按照分隔符将旧字符串截开,截成给定次数加1个字符串
+	str.splitliens([keepends])按照行('\r', '\r\n', \n')分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符
+	str.startwith(字符串,开始索引,结束索引) 检查str在指定范围内是否以给定字符串开头,是返回true,否则返回false
+	str.strip()去掉字符串两端的空格
+	str.suapcase()将字符串大写转换为小写,小写转换为大写
+	str.zfill(宽度)返回长度为宽度的字符串,源字符串右对齐,前面填充0
+	str.isdecimal()检查字符串是否只包含十进制字符串,是返回true,否则返回false
+二 列表
+1.基本操作
+	列表是python中的有序序列,索引从0开始,以-1结束
+	索引: list[数字],返回给定索引的列表元素
+	切片:list[开始索引:结束索引]返回开始索引至结束索引-1位置的列表
+	列表是可变的,元素可以是任意类型
+	列表是可以迭代的
+	len(list)返回列表的长度
+	max(list) 返回列表中最大的元素
+	min(list)返回列表中最小的元素
+	list(元组)将元组转换成列表
+	list('abc')将字符串转换成list,元素为字符串的每一个字符
+2.列表的拼接
+	list=list1+list2  为list1后添加上list2的所有元素,组成新的list
+	list*数字 返回 [元列表元素*数字个]
+	元素 in list 返回true或false 检查元素是否在列表中
+3.列表的方法	
+	list.append(元素)给列表添加元素
+	list.count(元素)统计元素在列表中出现的次数
+	list.extend(序列) 在列表末尾一次性追加里一个序列中的多个值 相当于+
+	list.index(元素) 找出元素在列表中第一个匹配位置的索引
+	list.insert(index,元素) 在列表中插入元素
+	list.reverse()反转列表中的元素倒序
+	list.clear()清空列表
+	list.sort(元素,reverse=true)列表排序,reverse为true是降序,key参数是按照某种方法进行排序
+	list.copy()复制列表
+	删除列表中的元素
+		list.pop([索引])移除列表中的元素,并返回该元素的值,默认为删除最后一个元素
+		list.remove(元素)移除列表中第一个该元素
+		del list[索引] 删除列表中指定元素
+三 字典
+1.字典基础
+	字典是可变,可以存储任意数据类型
+	键是唯一的,键不可变可以是数字,字符串
+	创建字典a={'键':'值'},a=dict(可迭代对象)
+	遍历字典 键: for 键 in 字典:
+		键和值:for key,val in 字典名.items()
+	删除字典元素 del 字典名[键]
+2.字典的方法
+	dict.clear()清除字典内所有元素
+	dict.copy()返回一个浅拷贝字典
+	dict.fromkeys(可迭代对象[,值]) 返回新字典,键为可迭代对象中的每一个元素,值默认为空
+	dict.get(key,default=None)返回指定键的值,,如果值不在字典中则返回默认的default值
+	key in dict 键在字典中返回true否则返回false
+	dict.keys()返回字典的键,是一个迭代器可以转换为list
+	dict.setdefault(key,default=默认值) 返回指定键的值如果不存在啊将添加键并设置值为默认值
+	dict.update(dict2)把字典2的键值对更新到dict中
+	dict.values()返回字典所有的值,类型为迭代器,可用list()转成列表
+	dict.pop(key[,默认值])删除字典给定键所对应的值,返回值为被删除的值,key必须给出,否则返回默认值
+	popitem()随机返回并删除字典中的最后一对键和值
+四 深浅拷贝
+	赋值: 将两个变量绑定同一个内存地址上 一变多变
+	浅拷贝:对于可变对象来说  外不变里变,只拷贝第一层的内存地址,第二层指向同一个内存地址
+		对于不可变对象来说 深浅拷贝没有区别
+	深拷贝:对于可变对象来说,拷贝内外两层的地址, 里外都不变	
+五 元素去重
+	1.可以用集合进行去重
+	2.np.unique(数组) 
+	3.遍历 判断是否重复添加到新列表中
+	4.keys字典的键
+
+	

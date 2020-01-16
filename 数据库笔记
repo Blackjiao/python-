@@ -1,0 +1,188 @@
+mysal -hlocalhost -u用户名 -p密码
+行:row 记录
+列:column 字段
+所有的命令后面加;
+如果写入错误,可以加;回车 继续写入
+
+一:数据库操作
+查看已有库       show databases;          
+创建新的数据库   create database 库名 character set utf8;   
+查看创建的库     show create database 库名;         
+切换库           use 库名;                        
+删除库           drop database 库名;
+查看表结构       desc  表名;    
+查看当前数据库   select database();
+
+
+二:表的基本操作
+1.字段类型
+数字类型:
+一个英文字符=8字节    一个中文字符16字节
+tinyint(0-255)大多30个中文,60个英文字符    smallint(0,65535)
+小整形 TINYINT 
+DECIMAL(M,D)  M,数字长度   D,小数点位数
+
+字符串类型:
+CHAR      定长(0-255)
+VARCAHR   变长字符串(0-65565)   VARCHAR()括号里面 必须填数字表示最多多长
+emu("w","m")  枚举,表示在这几个之间选择
+set()          用来存储给出的值中一个或多个 set("dance.sing")
+
+
+2.数据表表属性
+create table `表名`(字段名 数据类型,字段名 数据类型,)
+show tables
+1.主键字段:不能重复,不能为空..每个表都必须有一个主键字段.大多数会把id设为主键,其他也可以,比如电话号等,例如  primary key("id")_
+2.想设置数字无符号则加上  unsigned
+3.设置字段不能为空 NOT NULL   空NULL
+4.设置一个字段的默认值  DEFAULT
+5.定义列为自增的属性,数值自动加1,一般用于主键. AUTO_INCREMENT
+
+3.数据表操作
+查看数据表:         show tables;
+查看已有表的字符集:  show create table;
+查看表结构           desc 表名
+删除表               drop table 表名     
+
+三:数据操作基础:
+插入: 方法一:insert into 表名 values (值1)(值2) #注意:如果有要必填的位置,不能为空,填NULL
+      方法二: inser into 表名(字段1,字段2,,)(值1,值2,,)
+
+查询:查询表名所有数据:   select * from 表名 [where条件]   
+
+查询部分字段:       select 字段名1,字段名2 from 表名 where 条件;
+			select * from class_1 where sex='m' and age>9;
+											
+注意:select 左后可以加where语句.通过一定的运算条件筛选数据
+     算数运算符 where age % 2 == 0
+     比较运算符 where age < 30
+     逻辑运算符 where age in (8,9) or id >20
+
+更新表记录update:
+update 表名 set 更改 where 条件
+update class1 set score=92 where name="花花"
+
+删除表记录 delete:
+delete from 表明 where 条件
+delete from class1 where name = "Abby"
+
+
+
+表字段的操作(alter table 表名 执行动作)
+添加字段(add):
+alter table 表名 add 字段名 数据类型 after 字段名
+alter table class1 add tel tinyint after name
+
+删除字段(drop):
+alter table 表名 drop 字段名
+alter table class1 drop sex
+
+修改数据类型(modify):
+alter table 表名 modify 字段名 新数据类型;
+
+修改字段名(change)
+alter table 表名 change 旧字段名 新字段名 新数据类型
+
+表重命名(rename)
+alter table 表名 rename 新表名;
+
+
+四.时间:
+1.时间类型数据:
+DATE      日期1995/10/18
+TIME      时间12:10:20
+DATETIME  混合日期时间  
+
+2.时间函数:
+now()       返回当前日期时间,格式对应datetime类型
+curdate()   返回当前日期,格式对应datetime类型
+curtime()   返回当前时间,格式对应datetime型
+
+3.查找操作:
+select * from marathon where birthday > 2017-01-01
+
+
+
+五.高级
+模糊查询  like %表示任意0或多个字符  _任意一个字符,几个下划线表示几个字符
+         select * from class1 where name like "A%"  以A开头的名字\
+排序:    order by 默认升序    降序加上DESC
+         select * from class1 where sex = "m" order by age DECS
+限制:      limit 2  只显示两行
+联合查询(类似并集):   select 语句 UNION  select 语句
+            把两个结果都展示出来
+子查询(类似交集): select name from (select * from class1 where sex = "m") as s
+                where s.score <90
+                先筛选出所有女生的列
+                在这些列中筛选分数小于90的,显示名字
+六.聚合操作
+select语句执行顺序
+    1.from
+    2.where
+    3.group by
+    4.having
+    5.select
+    6.distinct
+    7.order by
+    8. limit
+聚合函数:
+avg()  max()   min()   sum()   count()
+
+聚合分组group by
+group by country 按国家分组
+
+聚合筛选 having语句
+having avg(score) >90
+注意:因为where关键字不能与聚合函数使用.where后只能操作相应的字段.
+    所以有了having,通常与聚合函数一起使用.having操作聚合函数生成的显示列
+
+
+七：事务
+begin 或者 start transaction
+commit 写入，rollback回滚
+脏读：两个终端，一个终端修改操作后，另一个读取到的数据还是更新之前的
+
+八：数据库优化
+1.查效率的高低，在语句前加explain..效率排序 const>ref。range
+explain select * from class1 where id <50.
+2.存储引擎的选择
+alter table class1 set engine=MyIsam
+3.数据库位置：  cd  var/lib/mysql
+4.表的拆分：垂直和水平拆分
+
+九：数据库备份
+mysqldump -uroot -p 要备份的库 > 文件目录/新的文件名
+把库名为stu的所有table 备份到当前目录下的stu.sql文件中
+mysql -uroot -p 目标库 <文件
+从所有库中恢复某一个库 mysql -uroot -p --one-database 目标库名<sql文件名
+十：
+与csv文件系统的交互
+vi  aid.scv  
+导入：load data infile '/var/lib/mysql-files/aid.csv' into table student fields terminated by ',' lines terminated by '\n';
+ 
+导出：select name,age from class1 into outfile '/var/lib/mysql-files/cls.csv' fileds terminated by ',' lines terminated by '\n';
+
+
+表一的文件复制到表二中：create table class2 select * from class1;
+
+十一：远程数据库
+修改配置文件，
+查看root用户使用的host 是否为%，在mysql库中查看
+use mysql    》》》    select * from user where user=‘root'；
+如果不是修改为%
+刷新权限   flush privileges
+授予用户某些库和表的权限 grant 权限 on  库名.表名 to '用户名'@'ip地址'  identified by '密码' with grant option
+
+
+
+
+
+
+
+
+
+
+
+
+
+
